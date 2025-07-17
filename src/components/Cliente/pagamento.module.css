@@ -1,0 +1,165 @@
+.view {
+    height: 85vh;
+}
+
+.ui {
+    width: 70vw;
+    background-color: white;
+    height: 100%;
+    padding: 20px;
+    border-radius: 18px;
+}
+
+.formasList {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+
+.forma {
+    background: #f4f4f4;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.botaoModal {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botaoModal:hover {
+    background: #0056b3;
+}
+
+/* Modal */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    width: 350px;
+}
+
+.formCartao label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.formCartao input,
+.formCartao select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.botoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.botoes button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.botoes button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
+
+.botoes button[type="submit"]:hover {
+    background-color: #1e7e34;
+}
+
+.botoes button[type="button"] {
+    background-color: #dc3545;
+    color: white;
+}
+
+.botoes button[type="button"]:hover {
+    background-color: #a71d2a;
+}
+
+.planosGrid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.plano {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: 170px;
+    position: relative;
+}
+
+.plano h3 {
+    margin: 0 0 10px;
+}
+
+.plano ul {
+    padding-left: 18px;
+    font-size: 0.95em;
+}
+
+.preco {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.ativo {
+    border-color: #28a745;
+    background-color: #f1fff2;
+}
+
+.ativoInfo {
+    margin-top: 10px;
+}
+
+.botaoAtivar,
+.botaoRenovar {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botaoRenovar:hover,
+.botaoAtivar:hover {
+    background: #0056b3;
+}
+
+.option{
+    display: flex;
+    justify-content: space-between;
+}
+
+.option h3{
+    margin: 5px;
+}

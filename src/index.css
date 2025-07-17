@@ -1,4 +1,8 @@
 body{
     margin: 0;
-    background-color: #ECDFCC;
+    font-family: sans-serif;
+}
+
+a:focus {
+    outline: none;
 }
