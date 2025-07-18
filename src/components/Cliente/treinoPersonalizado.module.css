@@ -1,0 +1,90 @@
+.view{
+    height: 85vh;
+}
+
+.ui{
+    padding: 20px;
+    background-color: white;
+    border-radius: 18px;
+    height: 100%;
+    width: 70vw;
+    max-height: 85vh;
+    overflow-y: scroll;
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    display: flex;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.imagem {
+    width: 180px;
+    height: 180px;
+    padding: 10px;
+    object-fit: contain;
+}
+
+.cardContent {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1a1a1a;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #444;
+    margin: 0.5rem 0;
+}
+
+.card ul {
+    list-style-type: disc;
+    padding-left: 1.2rem;
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.favBtn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #f4b400;
+}
+
+.startBtn {
+    background-color: #697565;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+.startBtn:hover {
+    background-color: #495146;
+}

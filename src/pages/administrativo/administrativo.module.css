@@ -29,6 +29,7 @@
 .sidebar li a {
     color: white;
     text-decoration: none;
+    padding: 20px;
 }
 
 .sidebar li svg {

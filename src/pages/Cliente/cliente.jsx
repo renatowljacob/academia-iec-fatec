@@ -15,7 +15,7 @@ const Cliente = () => {
                         <li><Link to="agenda"><FontAwesomeIcon icon={faCalendarDays} />Agendar aulas</Link></li>
                         <li><Link to="horario"><FontAwesomeIcon icon={faClock} />Consulta Horário</Link></li>
                         <li><Link to="pagamento"><FontAwesomeIcon icon={faCreditCard} />Pagamentos</Link></li>
-                        <li><Link to="treinos"><FontAwesomeIcon icon={faDumbbell} />Treinos personalizados</Link></li>
+                        <li><Link to="treinos"><FontAwesomeIcon icon={faDumbbell} />Treinar</Link></li>
                         <li><Link to="/"><FontAwesomeIcon icon={faRightFromBracket} />Logout</Link></li>
                     </ul>
                 </div>
