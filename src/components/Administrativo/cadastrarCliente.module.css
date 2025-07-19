@@ -1,0 +1,120 @@
+.container-cadastro {
+  max-width: 500px;
+  margin-left: calc(160px + 2rem);
+  margin-right: 2rem;
+  padding: 30px 40px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #1a202c;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.form-cadastro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-cadastro label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 15px;
+}
+
+.form-cadastro input[type="text"],
+.form-cadastro input[type="email"],
+.form-cadastro input[type="tel"],
+.form-cadastro input[type="date"],
+.form-cadastro select,
+.form-cadastro textarea {
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 6px;
+  box-sizing: border-box;
+  border: 1.8px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background-color: #f7fafc;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-cadastro input[type="text"]:focus,
+.form-cadastro input[type="email"]:focus,
+.form-cadastro input[type="tel"]:focus,
+.form-cadastro input[type="date"]:focus,
+.form-cadastro select:focus,
+.form-cadastro textarea:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 6px #90cdf4;
+  outline: none;
+  background-color: #fff;
+}
+
+.form-cadastro textarea {
+  resize: vertical;
+  height: 80px;
+  font-size: 14.5px;
+}
+
+button {
+  margin-top: 26px;
+  width: 100%;
+  padding: 14px 0;
+  background-color: #3182ce;
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #2c5282;
+  box-shadow: 0 6px 20px rgba(44, 82, 130, 0.7);
+}
+
+button:disabled {
+  background-color: #90cdf4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.erro {
+  color: #e53e3e;
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 14.5px;
+  text-align: center;
+}
+
+.sucesso {
+  color: #38a169;
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 14.5px;
+  text-align: center;
+}
+
+/* Responsivo: diminui margem para telas pequenas */
+@media (max-width: 768px) {
+  .container-cadastro {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    max-width: 100%;
+    padding: 20px 25px;
+  }
+}

@@ -48,7 +48,7 @@ function App() {
             <Route path="cadastrar-cliente" element={<CadCliente />} />
             <Route path="cadastrar-treino" element={<CadTreino />} />
             <Route path="controle-presenca" element={<ControlePresenca />} />
-            <Route path="gestao" element={<GestaoPlano />} />
+            <Route path="gestao-planos" element={<GestaoPlano />} />
           </Route>
 
 

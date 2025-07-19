@@ -14,7 +14,7 @@ const Administrativo = () => {
           <li><Link to="cadastrar-cliente"><FontAwesomeIcon icon={faUsersLine} />Cadastrar Cliente</Link></li>
           <li><Link to="cadastrar-treino"><FontAwesomeIcon icon={faDumbbell} />Cadastrar Treino</Link></li>
           <li><Link to="controle-presenca"><FontAwesomeIcon icon={faTableList} />Controle de Presença</Link></li>
-          <li><Link to="gestao"><FontAwesomeIcon icon={faToolbox} />Gestão de Planos</Link></li>
+          <li><Link to="gestao-planos"><FontAwesomeIcon icon={faToolbox} />Gestão de Planos</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faRightFromBracket} />Logout</Link></li>
         </ul>
       </aside>
