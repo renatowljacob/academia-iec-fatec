@@ -64,7 +64,6 @@ const CadastrarTreinos = () => {
       return;
     }
 
-    // Simulação de salvar
     console.log("Treino cadastrado:", treino);
     setSucesso("Treino cadastrado com sucesso!");
     setErro("");
@@ -82,49 +81,71 @@ const CadastrarTreinos = () => {
     <div className={styles["container-treino"]}>
       <h2>Cadastrar Treino</h2>
       <form onSubmit={handleSubmit} className={styles["form-treino"]}>
-        <label htmlFor="nome">Nome do treino*:</label>
-        <input
-          id="nome"
-          type="text"
-          name="nome"
-          value={treino.nome}
-          onChange={handleChange}
-          placeholder="Ex: Treino de força"
-        />
+        <div>
+          <label htmlFor="nome">Nome do treino*:</label>
+          <input
+            id="nome"
+            type="text"
+            name="nome"
+            value={treino.nome}
+            onChange={handleChange}
+            placeholder="Ex: Treino de força"
+          />
+        </div>
 
-        <label htmlFor="descricao">Descrição:</label>
-        <textarea
-          id="descricao"
-          name="descricao"
-          value={treino.descricao}
-          onChange={handleChange}
-          placeholder="Descreva o treino"
-        />
+        <div>
+          <label htmlFor="descricao">Descrição:</label>
+          <textarea
+            id="descricao"
+            name="descricao"
+            value={treino.descricao}
+            onChange={handleChange}
+            placeholder="Descreva o treino"
+          />
+        </div>
 
-        <label htmlFor="duracao">Duração (minutos)*:</label>
-        <input
-          id="duracao"
-          type="number"
-          name="duracao"
-          value={treino.duracao}
-          onChange={handleChange}
-          placeholder="Ex: 60"
-          min="1"
-        />
+        <div>
+          <label htmlFor="duracao">Duração (minutos)*:</label>
+          <input
+            id="duracao"
+            type="number"
+            name="duracao"
+            value={treino.duracao}
+            onChange={handleChange}
+            placeholder="Ex: 60"
+            min="1"
+          />
+        </div>
 
-        <label htmlFor="intensidade">Intensidade*:</label>
-        <select
-          id="intensidade"
-          name="intensidade"
-          value={treino.intensidade}
-          onChange={handleChange}
-        >
-          <option value="">Selecione</option>
-          <option value="leve">Leve</option>
-          <option value="moderada">Moderada</option>
-          <option value="intensa">Intensa</option>
-        </select>
+        <div>
+          <label htmlFor="intensidade">Intensidade*:</label>
+          <select
+            id="intensidade"
+            name="intensidade"
+            value={treino.intensidade}
+            onChange={handleChange}
+          >
+            <option value="">Selecione</option>
+            <option value="leve">Leve</option>
+            <option value="moderada">Moderada</option>
+            <option value="intensa">Intensa</option>
+          </select>
+        </div>
 
+        <div>
+          <label htmlFor="status">Status:</label>
+          <select
+            id="status"
+            name="status"
+            value={treino.status}
+            onChange={handleChange}
+          >
+            <option value="ativo">Ativo</option>
+            <option value="inativo">Inativo</option>
+          </select>
+        </div>
+
+        {/* Fieldset dos Dias da semana vem por último */}
         <fieldset className={styles["fieldset-dias"]}>
           <legend>Dias da semana*:</legend>
           <div className={styles["checkbox-group"]}>
@@ -142,17 +163,6 @@ const CadastrarTreinos = () => {
             ))}
           </div>
         </fieldset>
-
-        <label htmlFor="status">Status:</label>
-        <select
-          id="status"
-          name="status"
-          value={treino.status}
-          onChange={handleChange}
-        >
-          <option value="ativo">Ativo</option>
-          <option value="inativo">Inativo</option>
-        </select>
 
         {erro && <p className={styles.erro}>{erro}</p>}
         {sucesso && <p className={styles.sucesso}>{sucesso}</p>}

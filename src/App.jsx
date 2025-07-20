@@ -3,9 +3,7 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // rotas primordiais 
-import HomePage from "./pages/homePage/homePage";
 import Login from "./pages/login/login";
-import Cadastro from "./pages/cadastro/cadastro";
 import Administrativo from "./pages/administrativo/administrativo";
 import Cliente from "./pages/cliente/cliente"
 
@@ -30,9 +28,8 @@ function App() {
       <Router>
         <Routes>
           {/* rotas primordiais */}
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/cadastro" element={<Cadastro />} />
 
           {/* rotas a partir do cliente */}
           <Route path="/cliente" element={<Cliente />}>

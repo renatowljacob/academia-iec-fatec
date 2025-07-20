@@ -46,8 +46,6 @@ const CadastrarCliente = () => {
       return;
     }
 
-    // Aqui você pode integrar backend para salvar os dados
-
     console.log("Cliente cadastrado:", cliente);
     setSucesso("Cliente cadastrado com sucesso!");
     setErro("");
@@ -69,100 +67,120 @@ const CadastrarCliente = () => {
     <div className={styles["container-cadastro"]}>
       <h2>Cadastro de Cliente</h2>
       <form onSubmit={handleSubmit} className={styles["form-cadastro"]}>
-        <label htmlFor="nome">Nome completo*:</label>
-        <input
-          id="nome"
-          type="text"
-          name="nome"
-          value={cliente.nome}
-          onChange={handleChange}
-          required
-        />
+        <div>
+          <label htmlFor="nome">Nome completo*:</label>
+          <input
+            id="nome"
+            type="text"
+            name="nome"
+            value={cliente.nome}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label htmlFor="dataNascimento">Data de nascimento:</label>
-        <input
-          id="dataNascimento"
-          type="date"
-          name="dataNascimento"
-          value={cliente.dataNascimento}
-          onChange={handleChange}
-        />
+        <div>
+          <label htmlFor="dataNascimento">Data de nascimento:</label>
+          <input
+            id="dataNascimento"
+            type="date"
+            name="dataNascimento"
+            value={cliente.dataNascimento}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="cpf">CPF*:</label>
-        <input
-          id="cpf"
-          type="text"
-          name="cpf"
-          value={cliente.cpf}
-          onChange={handleChange}
-          maxLength={11}
-          required
-        />
+        <div>
+          <label htmlFor="cpf">CPF*:</label>
+          <input
+            id="cpf"
+            type="text"
+            name="cpf"
+            value={cliente.cpf}
+            onChange={handleChange}
+            maxLength={11}
+            required
+          />
+        </div>
 
-        <label htmlFor="telefone">Telefone/WhatsApp:</label>
-        <input
-          id="telefone"
-          type="tel"
-          name="telefone"
-          value={cliente.telefone}
-          onChange={handleChange}
-        />
+        <div>
+          <label htmlFor="telefone">Telefone/WhatsApp:</label>
+          <input
+            id="telefone"
+            type="tel"
+            name="telefone"
+            value={cliente.telefone}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="email">E-mail:</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          value={cliente.email}
-          onChange={handleChange}
-        />
+        <div>
+          <label htmlFor="email">E-mail:</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            value={cliente.email}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="endereco">Endereço:</label>
-        <input
-          id="endereco"
-          type="text"
-          name="endereco"
-          value={cliente.endereco}
-          onChange={handleChange}
-        />
+        <div>
+          <label htmlFor="endereco">Endereço:</label>
+          <input
+            id="endereco"
+            type="text"
+            name="endereco"
+            value={cliente.endereco}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="plano">Plano escolhido*:</label>
-        <input
-          id="plano"
-          type="text"
-          name="plano"
-          value={cliente.plano}
-          onChange={handleChange}
-          required
-        />
+        <div>
+          <label htmlFor="plano">Plano escolhido*:</label>
+          <input
+            id="plano"
+            type="text"
+            name="plano"
+            value={cliente.plano}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label htmlFor="dataInicioPlano">Data de início do plano:</label>
-        <input
-          id="dataInicioPlano"
-          type="date"
-          name="dataInicioPlano"
-          value={cliente.dataInicioPlano}
-          onChange={handleChange}
-        />
+        <div>
+          <label htmlFor="dataInicioPlano">Data de início do plano:</label>
+          <input
+            id="dataInicioPlano"
+            type="date"
+            name="dataInicioPlano"
+            value={cliente.dataInicioPlano}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="observacoes">Observações / restrições:</label>
-        <textarea
-          id="observacoes"
-          name="observacoes"
-          value={cliente.observacoes}
-          onChange={handleChange}
-        />
+        <div>
+          <label htmlFor="observacoes">Observações / restrições:</label>
+          <textarea
+            id="observacoes"
+            name="observacoes"
+            value={cliente.observacoes}
+            onChange={handleChange}
+          />
+        </div>
 
-        <label htmlFor="status">Status:</label>
-        <select
-          id="status"
-          name="status"
-          value={cliente.status}
-          onChange={handleChange}
-        >
-          <option value="ativo">Ativo</option>
-          <option value="inativo">Inativo</option>
-        </select>
+        <div>
+          <label htmlFor="status">Status:</label>
+          <select
+            id="status"
+            name="status"
+            value={cliente.status}
+            onChange={handleChange}
+          >
+            <option value="ativo">Ativo</option>
+            <option value="inativo">Inativo</option>
+          </select>
+        </div>
 
         {erro && <p className={styles.erro}>{erro}</p>}
         {sucesso && <p className={styles.sucesso}>{sucesso}</p>}

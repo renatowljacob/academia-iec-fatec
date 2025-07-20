@@ -1,13 +1,16 @@
 .container-cadastro {
-  max-width: 500px;
-  margin-left: calc(160px + 2rem);
-  margin-right: 2rem;
+  max-width: 1100px; 
+  margin-left: 1rem;
+  margin-right: calc((100vw - 160px - 1100px) / 2);
   padding: 30px 40px;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+
+
 
 h2 {
   text-align: center;
@@ -18,41 +21,38 @@ h2 {
 }
 
 .form-cadastro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* colunas adaptáveis */
+  gap: 20px 30px;
+  align-items: start;
+}
+
+.form-cadastro > div {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
 .form-cadastro label {
-  display: flex;
-  flex-direction: column;
   font-weight: 600;
   color: #2d3748;
   font-size: 15px;
+  margin-bottom: 6px;
 }
 
-.form-cadastro input[type="text"],
-.form-cadastro input[type="email"],
-.form-cadastro input[type="tel"],
-.form-cadastro input[type="date"],
+.form-cadastro input,
 .form-cadastro select,
 .form-cadastro textarea {
   width: 100%;
   padding: 10px 14px;
-  margin-top: 6px;
-  box-sizing: border-box;
   border: 1.8px solid #cbd5e0;
   border-radius: 8px;
   font-size: 15px;
-  font-family: inherit;
   background-color: #f7fafc;
+  box-sizing: border-box;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-cadastro input[type="text"]:focus,
-.form-cadastro input[type="email"]:focus,
-.form-cadastro input[type="tel"]:focus,
-.form-cadastro input[type="date"]:focus,
+.form-cadastro input:focus,
 .form-cadastro select:focus,
 .form-cadastro textarea:focus {
   border-color: #4299e1;
@@ -63,13 +63,19 @@ h2 {
 
 .form-cadastro textarea {
   resize: vertical;
-  height: 80px;
+  height: 50px;
   font-size: 14.5px;
 }
 
+
+.form-cadastro > div:nth-child(9) {
+  grid-column: span 2;
+}
+
+
 button {
-  margin-top: 26px;
-  width: 100%;
+  margin-top: 30px;
+  grid-column: 1 / -1; 
   padding: 14px 0;
   background-color: #3182ce;
   color: white;
@@ -93,28 +99,43 @@ button:disabled {
   box-shadow: none;
 }
 
-.erro {
-  color: #e53e3e;
+
+.erro,
+.sucesso {
+  grid-column: 1 / -1;
   margin-top: 10px;
   font-weight: 700;
   font-size: 14.5px;
   text-align: center;
+}
+
+.erro {
+  color: #e53e3e;
 }
 
 .sucesso {
   color: #38a169;
-  margin-top: 10px;
-  font-weight: 700;
-  font-size: 14.5px;
-  text-align: center;
 }
 
-/* Responsivo: diminui margem para telas pequenas */
+/* Responsividade */
 @media (max-width: 768px) {
   .container-cadastro {
     margin-left: 1rem;
     margin-right: 1rem;
     max-width: 100%;
     padding: 20px 25px;
+  }
+
+  .form-cadastro {
+    grid-template-columns: 1fr;
+  }
+
+
+  .form-cadastro > div:nth-child(9) {
+    grid-column: auto;
+  }
+
+  button {
+    grid-column: auto;
   }
 }

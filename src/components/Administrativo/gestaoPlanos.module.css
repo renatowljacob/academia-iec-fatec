@@ -1,7 +1,7 @@
 .container-planos {
-  max-width: 600px;
-  margin-left: calc(160px + 2rem); /* ajuste conforme sua navbar */
-  margin-right: 2rem;
+  max-width: 950px;
+  margin-left: 1rem;
+  margin-right: 1rem;
   margin-top: 30px;
   padding: 28px 36px;
   background: #f8f9fb;
@@ -9,25 +9,32 @@
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #2d3a4a;
+
+  display: flex;
+  flex-direction: column; /* título em cima */
+  gap: 24px;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 28px;
+.titulo-principal {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 16px;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 28px;
   color: #1f2a40;
 }
 
-h3 {
-  margin-top: 40px;
-  font-weight: 600;
-  color: #34495e;
+.form-planos {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .form-planos label {
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   font-weight: 600;
   color: #34495e;
 }
@@ -37,7 +44,6 @@ h3 {
 .form-planos textarea {
   width: 100%;
   padding: 12px 16px;
-  margin-top: 6px;
   border-radius: 10px;
   border: 2px solid #cbd5e1;
   font-size: 16px;
@@ -99,10 +105,28 @@ button:hover {
   text-align: center;
 }
 
+.lista-container {
+  background: white;
+  padding: 16px 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+  margin-top: 0;
+  color: #2d3a4a;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+h3 {
+  margin-top: 0;
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 16px;
+}
+
 .lista-planos {
   list-style: none;
   padding: 0;
-  margin-top: 20px;
+  margin: 0;
 }
 
 .item-plano {
@@ -121,6 +145,7 @@ button:hover {
   margin: 6px 0 0 0;
   font-size: 14px;
   color: #64748b;
+  white-space: pre-wrap;
 }
 
 .acoes button {
@@ -153,11 +178,35 @@ button:hover {
 }
 
 /* Responsivo */
+@media (min-width: 769px) {
+  .container-planos {
+    flex-direction: row; /* lado a lado em telas maiores */
+    gap: 40px;
+  }
+
+  .form-planos {
+    margin-right: 40px;
+  }
+
+  .lista-container {
+    margin-top: 0;
+    max-height: 600px;
+    flex: 0 0 350px;
+  }
+}
+
 @media (max-width: 768px) {
   .container-planos {
+    flex-direction: column;
     margin-left: 1rem;
     margin-right: 1rem;
     max-width: 100%;
     padding: 20px 24px;
+  }
+
+  .lista-container {
+    flex: none;
+    max-height: none;
+    margin-top: 24px;
   }
 }

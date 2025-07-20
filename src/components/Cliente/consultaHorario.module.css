@@ -9,3 +9,8 @@
     height: 100%;
     border-radius: 18px;
 }
+
+.ui table{
+    border: 1px solid black;
+    margin-bottom: 20px;
+}

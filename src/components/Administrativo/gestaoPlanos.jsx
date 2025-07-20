@@ -101,23 +101,26 @@ const GestaoPlanos = () => {
 
   return (
     <div className={styles["container-planos"]}>
-      <h2>Gestão de Planos</h2>
-
+      {/* Formulário com título dentro */}
       <form onSubmit={handleSubmit} className={styles["form-planos"]}>
-        <label>
-          Nome do Plano*:
+        <h2 className={styles["titulo-principal"]}>Gestão de Planos</h2>
+
+        <div>
+          <label htmlFor="nome">Nome do Plano*:</label>
           <input
+            id="nome"
             type="text"
             name="nome"
             value={form.nome}
             onChange={handleChange}
             placeholder="Ex: Plano Mensal"
           />
-        </label>
+        </div>
 
-        <label>
-          Preço (R$)*:
+        <div>
+          <label htmlFor="preco">Preço (R$)*:</label>
           <input
+            id="preco"
             type="number"
             name="preco"
             value={form.preco}
@@ -125,11 +128,12 @@ const GestaoPlanos = () => {
             step="0.01"
             placeholder="Ex: 149.90"
           />
-        </label>
+        </div>
 
-        <label>
-          Duração (meses)*:
+        <div>
+          <label htmlFor="duracao">Duração (meses)*:</label>
           <input
+            id="duracao"
             type="number"
             name="duracao"
             value={form.duracao}
@@ -137,22 +141,25 @@ const GestaoPlanos = () => {
             min="1"
             placeholder="Ex: 1"
           />
-        </label>
+        </div>
 
-        <label>
-          Descrição:
+        <div>
+          <label htmlFor="descricao">Descrição:</label>
           <textarea
+            id="descricao"
             name="descricao"
             value={form.descricao}
             onChange={handleChange}
             placeholder="Descrição do plano"
+            rows={3}
           />
-        </label>
+        </div>
 
         {erro && <p className={styles.erro}>{erro}</p>}
         {sucesso && <p className={styles.sucesso}>{sucesso}</p>}
 
         <button type="submit">{editando ? "Atualizar Plano" : "Cadastrar Plano"}</button>
+
         {editando && (
           <button
             type="button"
@@ -169,27 +176,29 @@ const GestaoPlanos = () => {
         )}
       </form>
 
-      <h3>Planos cadastrados</h3>
-      {planos.length === 0 && <p>Nenhum plano cadastrado.</p>}
-      <ul className={styles["lista-planos"]}>
-        {planos.map(({ id, nome, preco, duracao, descricao }) => (
-          <li key={id} className={styles["item-plano"]}>
-            <div>
-              <strong>{nome}</strong> - R$ {preco.toFixed(2)} / {duracao}{" "}
-              {duracao === 1 ? "mês" : "meses"}
-              <p>{descricao}</p>
-            </div>
-            <div className={styles.acoes}>
-              <button onClick={() => editarPlano(id)} className={styles["btn-editar"]}>
-                Editar
-              </button>
-              <button onClick={() => excluirPlano(id)} className={styles["btn-excluir"]}>
-                Excluir
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {/* Lista dos planos ao lado do formulário */}
+      <div className={styles["lista-container"]}>
+        <h3>Planos cadastrados</h3>
+        {planos.length === 0 && <p>Nenhum plano cadastrado.</p>}
+        <ul className={styles["lista-planos"]}>
+          {planos.map(({ id, nome, preco, duracao, descricao }) => (
+            <li key={id} className={styles["item-plano"]}>
+              <div>
+                <strong>{nome}</strong> - R$ {preco.toFixed(2)} / {duracao} {duracao === 1 ? "mês" : "meses"}
+                <p>{descricao}</p>
+              </div>
+              <div className={styles.acoes}>
+                <button onClick={() => editarPlano(id)} className={styles["btn-editar"]}>
+                  Editar
+                </button>
+                <button onClick={() => excluirPlano(id)} className={styles["btn-excluir"]}>
+                  Excluir
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
