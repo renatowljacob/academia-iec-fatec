@@ -1,7 +1,7 @@
-const db = require("db");
+import { query } from "db";
 
 async function create(aulas) {
-    const results = db.query(
+    const results = query(
         `INSERT INTO aulas
          (nome, professor, horario)
          VALUES
@@ -12,7 +12,7 @@ async function create(aulas) {
 }
 
 async function getById(id) {
-    const results = db.query(
+    const results = query(
         `SELECT id, nome, professor, horario FROM aulas WHERE id=${id}`
     );
 
@@ -20,7 +20,7 @@ async function getById(id) {
 }
 
 async function getAll() {
-    const results = db.query(
+    const results = query(
         `SELECT id, nome, professor, horario FROM aulas`
     );
 
@@ -28,7 +28,7 @@ async function getAll() {
 }
 
 async function remove(id) {
-    const results = db.query(
+    const results = query(
         `DELETE FROM aulas WHERE id=${id}`
     );
 
@@ -36,7 +36,7 @@ async function remove(id) {
 }
 
 async function update(id, aulas) {
-    const results = db.query(
+    const results = query(
         `UPDATE aulas
          SET nome='${aulas.nome}', professor='${aulas.professor}', horario=${aulas.horario}
          WHERE id=${id}`
@@ -45,7 +45,7 @@ async function update(id, aulas) {
     return results;
 }
 
-module.exports = {
+export default {
     create,
     getById,
     getAll,

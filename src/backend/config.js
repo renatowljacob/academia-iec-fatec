@@ -6,4 +6,4 @@ const config = {
     }
 }
 
-exports.module = config;
+export const module = config;
