@@ -1,6 +1,6 @@
 const config = {
     db: {
-        user: "espritmakomako",
+        user: "root",
         password: "",
         database: "academia",
     }

@@ -1,7 +1,7 @@
 import { query, filterUndefinedAttrs, makeSetStr } from "./db.js";
 
 async function create(cliente) {
-    const { keys, values } = filterUndefinedAttrs(treino);
+    const { keys, values } = filterUndefinedAttrs(cliente);
 
     const result = query(
         `INSERT INTO clientes
