@@ -5,7 +5,7 @@ async function create(aulas) {
         `INSERT INTO aulas
          (nome, professor, horario)
          VALUES
-         ('${aulas.nome}', '${aulas.professor}', '${aulas.horario}')`
+         ('${aulas.nome}', '${aulas.professor ?? ''}', '${aulas.horario ?? ''}')`
     );
 
     return results;
@@ -38,7 +38,7 @@ async function remove(id) {
 async function update(id, aulas) {
     const results = query(
         `UPDATE aulas
-         SET nome='${aulas.nome}', professor='${aulas.professor}', horario=${aulas.horario}
+         SET nome='${aulas.nome}', professor='${aulas.professor ?? ''}', horario=${aulas.horario ?? ''}
          WHERE id=${id}`
     );
 

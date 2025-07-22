@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // rotas primordiais 
 import Login from "./pages/login/login";
-import Administrativo from "./pages/administrativo/administrativo";
-import Cliente from "./pages/cliente/cliente"
+import Administrativo from "./pages/Administrativo/administrativo";
+import Cliente from "./pages/Cliente/cliente"
 
 // rotas do cliente 
 import AcomProgresso from "./components/Cliente/acompanharProgresso";

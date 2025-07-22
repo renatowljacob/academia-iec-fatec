@@ -5,7 +5,7 @@ async function create(pagamento) {
         `INSERT INTO pagamentos
          (cliente_id, data_pagamento, valor, status)
          VALUES
-         (${pagamento.cliente_id}, ${pagamento.data_pagamento}, ${pagamento.valor}, '${pagamento.status}')`
+         (${pagamento.cliente_id}, ${pagamento.data_pagamento}, ${pagamento.valor}, '${pagamento.status ?? ''}')`
     );
 
     return result;
@@ -43,7 +43,7 @@ async function update(id, pagamento) {
     const result = query(
         `UPDATE pagamentos
          cliente_id, data_pagamento, valor, status
-         SET cliente_id=${pagamento.cliente_id}, data_pagamento=${pagamento.data_pagamento}, valor=${pagamento.valor}, status='${pagamento.status}'
+         SET cliente_id=${pagamento.cliente_id}, data_pagamento=${pagamento.data_pagamento}, valor=${pagamento.valor}, status='${pagamento.status ?? ''}'
          WHERE id=${id}`
     );
 

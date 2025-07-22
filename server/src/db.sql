@@ -49,7 +49,7 @@ CREATE TABLE pagamentos(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT UNSIGNED NOT NULL,
     data_pagamento DATE NOT NULL,
-    valor DECIMAL(8,2) UNSIGNED,
+    valor DECIMAL(8,2) UNSIGNED NOT NULL,
     status VARCHAR(64),
     CONSTRAINT `fk_cliente_id`
         FOREIGN KEY (cliente_id) REFERENCES clientes (id)

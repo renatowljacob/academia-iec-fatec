@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/admins", {
+      const response = await axios.post("/clientes", {
         email: email,
         password: senha,
         tipo: tipo,

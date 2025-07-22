@@ -1,11 +1,12 @@
 import query from "./db.js";
 
 async function create(treino) {
+
     const result = query(
         `INSERT INTO treinos
          (cliente_id, nome_treino, descricao, status, data_inicio)
          VALUES
-         (${treino.cliente_id}, '${treino.nome_treino}', '${treino.descricao}', '${treino.status}', '${treino.data_inicio})`
+         (${treino.cliente_id}, '${treino.nome_treino}', '${treino.descricao ?? ''}', '${treino.data_inicio ?? ''})`
     );
 
     return result;
@@ -43,7 +44,7 @@ async function update(id, treino) {
     const result = query(
         `UPDATE treinos
          cliente_id, nome_treino, descricao, status
-         SET cliente_id=${treino.cliente_id}, nome_treino='${treino.nome_treino}', descricao='${treino.descricao}', status='${treino.status}'
+         SET cliente_id=${treino.cliente_id}, nome_treino='${treino.nome_treino}', descricao='${treino.descricao ?? ''}', data_inicio='${treino.status ?? ''}'
          WHERE id=${id}`
     );
 
