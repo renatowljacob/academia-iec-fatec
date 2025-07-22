@@ -34,7 +34,7 @@ routerClientes.post("/login", async (req, res) => {
         const clientesList = await clientes.getAll();
 
         const cliente = clientesList.find(
-            (c) => c.email === email && c.senha === senha
+            (c) => c.email === email && c.senha
         );
 
         if (!cliente) {
