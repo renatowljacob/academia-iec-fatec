@@ -5,7 +5,7 @@ async function create(aulas) {
         `INSERT INTO aulas
          (nome, professor, horario)
          VALUES
-         ('${aulas.nome}', '${aulas.professor}', ${aulas.horario})`
+         ('${aulas.nome}', '${aulas.professor}', '${aulas.horario}')`
     );
 
     return results;

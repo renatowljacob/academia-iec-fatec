@@ -3,9 +3,9 @@ import query from "./db.js";
 async function create(treino) {
     const result = query(
         `INSERT INTO treinos
-         (cliente_id, nome_treino, descricao, status)
+         (cliente_id, nome_treino, descricao, status, data_inicio)
          VALUES
-         (${treino.cliente_id}, '${treino.nome_treino}', '${treino.descricao}', '${treino.status}')`
+         (${treino.cliente_id}, '${treino.nome_treino}', '${treino.descricao}', '${treino.status}', '${treino.data_inicio})`
     );
 
     return result;

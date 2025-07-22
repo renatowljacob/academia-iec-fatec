@@ -5,7 +5,7 @@ async function create(cliente) {
         `INSERT INTO clientes
          (nome, email, senha, telefone, data_nascimento)
          VALUES
-         ('${cliente.nome}', '${cliente.email}', '${cliente.senha}', '${cliente.telefone}', ${cliente.data_nascimento})`
+         ('${cliente.nome}', '${cliente.email}', '${cliente.senha}', '${cliente.telefone}', '${cliente.data_nascimento}')`
     );
 
     return result;
@@ -42,7 +42,7 @@ async function remove(id) {
 async function update(id, cliente) {
     const result = query(
         `UPDATE clientes
-         SET nome='${cliente.nome}', email='${cliente.email}', senha='${cliente.senha}', telefone='${cliente.telefone}', data_nascimento=${cliente.data_nascimento}
+         SET nome='${cliente.nome}', email='${cliente.email}', senha='${cliente.senha}', telefone='${cliente.telefone}', data_nascimento='${cliente.data_nascimento}'
          WHERE id=${id}`
     );
 

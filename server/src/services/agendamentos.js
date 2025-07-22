@@ -5,7 +5,7 @@ async function create(agendamento) {
         `INSERT INTO agendamentos
          (cliente_id, aula_id, data)
          VALUES
-         (${agendamento.cliente_id}, ${agendamento.aula_id}, ${agendamento.data})`
+         (${agendamento.cliente_id}, ${agendamento.aula_id}, '${agendamento.data}')`
     );
 
     return result;
@@ -42,7 +42,7 @@ async function remove(id) {
 async function update(id, agendamento) {
     const result = query(
         `UPDATE agendamentos
-         SET cliente_id=${agendamento.cliente_id}, aula_id=${agendamento.aula_id}, data=${agendamento.data}
+         SET cliente_id=${agendamento.cliente_id}, aula_id=${agendamento.aula_id}, data='${agendamento.data}'
          WHERE id=${id}`
     );
 

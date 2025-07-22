@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/login", {
+      const response = await axios.post("/admins", {
         email: email,
         password: senha,
         tipo: tipo,
@@ -25,7 +25,7 @@ const Login = () => {
 
       console.log("Login bem-sucedido:", response.data);
       setErro(null);
-      
+
     } catch (error) {
       console.error("Erro no login:", error);
       setErro("Falha no login. Verifique seu email e senha.");
