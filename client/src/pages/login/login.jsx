@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./login.module.css";
 import img1 from "../../assets/img1.png";
-import axios from "axios";
+import { login } from "../../services/auth"; // ✅ importando o serviço
 
 const Login = () => {
   const [tipo, setTipo] = useState("administrativo");
@@ -17,14 +17,12 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/admins", {
-        email: email,
-        password: senha,
-        tipo: tipo,
-      });
-
-      console.log("Login bem-sucedido:", response.data);
+      const data = await login(email, senha, tipo); // ✅ usando o serviço login
+      console.log("Login bem-sucedido:", data);
       setErro(null);
+
+      // redirecionamento se quiser:
+      // navigate(tipo === "cliente" ? "/cliente" : "/administrativo");
 
     } catch (error) {
       console.error("Erro no login:", error);
