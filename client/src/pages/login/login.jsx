@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styles from "./login.module.css";
 import img1 from "../../assets/img1.png";
 import axios from "../../services/api"; // Certifique-se que esse caminho está correto
+import { Route, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [tipo, setTipo] = useState("administrativo");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -21,6 +23,10 @@ const Login = () => {
         email: email,
         senha: senha,
       });
+
+      if (response.data) {
+        navigate(`/${tipo == "administrativo" ? "administrativo" : "cliente"}`);
+      }
 
       console.log("Login bem-sucedido:", response.data);
       setErro(null);

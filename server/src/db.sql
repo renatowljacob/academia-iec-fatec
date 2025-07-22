@@ -5,7 +5,6 @@ CREATE TABLE clientes(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(128) NOT NULL,
     email VARCHAR(128) NOT NULL,
-    senha VARCHAR(256) NOT NULL,
     telefone VARCHAR(16),
     data_nascimento DATE NOT NULL
 );
