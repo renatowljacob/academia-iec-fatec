@@ -16,7 +16,7 @@ app.get("/", (_, res) => {
     res.json({ message: "ok" });
 });
 
-app.use("/clientes", clientesRouter);
+app.use("/clientes", routerClientes);
 app.use("/admins", routerAdmin);
 app.use("/agendamentos", routerAgendamentos);
 app.use("/aulas", routerAulas);
