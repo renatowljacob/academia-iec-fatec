@@ -1,3 +1,6 @@
+CREATE DATABASE academia;
+USE academia;
+
 CREATE TABLE clientes(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(128) NOT NULL,
@@ -20,7 +23,7 @@ CREATE TABLE treinos(
     nome VARCHAR(128) NOT NULL,
     descricao TEXT,
     data_inicio DATE,
-    CONSTRAINT `fk_cliente_id`
+    CONSTRAINT `fk_cliente_treino_id`
         FOREIGN KEY (cliente_id) REFERENCES clientes (id)
         ON UPDATE CASCADE
 );
@@ -37,10 +40,10 @@ CREATE TABLE agendamentos(
     cliente_id INT UNSIGNED NOT NULL,
     aula_id INT UNSIGNED NOT NULL,
     data DATE NOT NULL,
-    CONSTRAINT `fk_cliente_id`
+    CONSTRAINT `fk_cliente_agendamento_id`
         FOREIGN KEY (cliente_id) REFERENCES clientes (id)
-        ON UPDATE CASCADE
-    CONSTRAINT `fk_aula_id`
+        ON UPDATE CASCADE,
+    CONSTRAINT `fk_aula_agendamento_id`
         FOREIGN KEY (aula_id) REFERENCES aulas (id)
         ON UPDATE CASCADE
 );
@@ -51,7 +54,7 @@ CREATE TABLE pagamentos(
     data_pagamento DATE NOT NULL,
     valor DECIMAL(8,2) UNSIGNED NOT NULL,
     status VARCHAR(64),
-    CONSTRAINT `fk_cliente_id`
+    CONSTRAINT `fk_cliente_pagamento_id`
         FOREIGN KEY (cliente_id) REFERENCES clientes (id)
         ON UPDATE CASCADE
 );
