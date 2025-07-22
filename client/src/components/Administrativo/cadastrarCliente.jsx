@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./cadastrarCliente.module.css";
+import axios from "../../services/api"; // Certifique-se que esse caminho está correto
 
 const validarCPF = (cpf) => {
   const cpfLimpo = cpf.replace(/\D/g, "");
@@ -37,7 +38,7 @@ const CadastrarCliente = () => {
     return null;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const erroValidacao = validarCampos();
@@ -46,21 +47,43 @@ const CadastrarCliente = () => {
       return;
     }
 
-    console.log("Cliente cadastrado:", cliente);
-    setSucesso("Cliente cadastrado com sucesso!");
-    setErro("");
-    setCliente({
-      nome: "",
-      dataNascimento: "",
-      cpf: "",
-      telefone: "",
-      email: "",
-      endereco: "",
-      plano: "",
-      dataInicioPlano: "",
-      observacoes: "",
-      status: "ativo",
-    });
+    try {
+      console.log("Cliente cadastrado:", cliente);
+console.log(cliente.dataNascimento);
+
+      const response = await axios.post(`/api/clientes`, {
+        nome: cliente.nome,
+        email: cliente.email,
+        senha: cliente.senha,
+        telefone: cliente.telefone,
+        data_nascimento: cliente.dataNascimento
+      });
+
+      if (response.data) {
+        setErro("");
+        setCliente({
+          nome: "",
+          dataNascimento: "",
+          cpf: "",
+          telefone: "",
+          email: "",
+          endereco: "",
+          plano: "",
+          dataInicioPlano: "",
+          observacoes: "",
+          status: "ativo",
+        });
+        setSucesso("Cliente cadastrado com sucesso!");
+        //navigate(`/${tipo == "administrativo" ? "administrativo" : "cliente"}`);
+      }
+
+      console.log("Login bem-sucedido:", response.data);
+      setErro(null);
+      // Redirecionar ou armazenar dados no localStorage, se necessário
+    } catch (error) {
+      console.error("Erro no login:", error);
+      setErro("Falha no login. Verifique seu email e senha.");
+    }
   };
 
   return (
