@@ -1,11 +1,13 @@
-import query from './db.js';
+import { query, filterUndefinedAttrs, makeSetStr } from "./db.js";
 
 async function create(admin) {
+    const { keys, values } = filterUndefinedAttrs(admin);
+
     const result = query(
         `INSERT INTO admins
-         (nome, email, senha)
+         (${keys})
          VALUES
-         ('${admin.nome}', '${admin.email}', '${admin.senha}')`
+         (${values})`
     );
 
     return result;
@@ -13,7 +15,7 @@ async function create(admin) {
 
 async function getAll() {
     const result = query(
-        `SELECT id, nome, email
+        `SELECT id, nome, email, senha
          FROM admins`
     );
 
@@ -22,7 +24,7 @@ async function getAll() {
 
 async function getById(id) {
     const result = query(
-        `SELECT id, nome, email
+        `SELECT id, nome, email, senha
          FROM admins
          WHERE id=${id}`
     );
@@ -40,9 +42,11 @@ async function remove(id) {
 }
 
 async function update(id, admin) {
+    const queryStr = makeSetStr(admin);
+
     const result = query(
         `UPDATE admins
-         SET nome='${admin.nome}', email='${admin.email}', senha='${admin.senha}'
+         SET ${queryStr}
          WHERE id=${id}`
     );
 

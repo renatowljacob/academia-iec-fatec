@@ -1,11 +1,12 @@
-import query from "./db.js";
+import { query, filterUndefinedAttrs, makeSetStr } from "./db.js";
 
 async function create(aulas) {
+    const { keys, values } = filterUndefinedAttrs(aulas);
     const results = query(
         `INSERT INTO aulas
-         (nome, professor, horario)
+         (${keys})
          VALUES
-         ('${aulas.nome}', '${aulas.professor ?? ''}', '${aulas.horario ?? ''}')`
+         (${values})`
     );
 
     return results;
@@ -36,9 +37,11 @@ async function remove(id) {
 }
 
 async function update(id, aulas) {
+    const queryStr = makeSetStr(aulas);
+
     const results = query(
         `UPDATE aulas
-         SET nome='${aulas.nome}', professor='${aulas.professor ?? ''}', horario=${aulas.horario ?? ''}
+         SET ${queryStr}
          WHERE id=${id}`
     );
 

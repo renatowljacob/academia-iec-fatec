@@ -1,11 +1,13 @@
-import query from "./db.js";
+import { query, filterUndefinedAttrs, makeSetStr } from "./db.js";
 
 async function create(pagamento) {
+    const { keys, values } = filterUndefinedAttrs(pagamento);
+
     const result = query(
         `INSERT INTO pagamentos
-         (cliente_id, data_pagamento, valor, status)
+         (${keys})
          VALUES
-         (${pagamento.cliente_id}, ${pagamento.data_pagamento}, ${pagamento.valor}, '${pagamento.status ?? ''}')`
+         (${values})`
     );
 
     return result;
@@ -40,10 +42,11 @@ async function remove(id) {
 }
 
 async function update(id, pagamento) {
+    const queryStr = makeSetStr(pagamento);
+
     const result = query(
         `UPDATE pagamentos
-         cliente_id, data_pagamento, valor, status
-         SET cliente_id=${pagamento.cliente_id}, data_pagamento=${pagamento.data_pagamento}, valor=${pagamento.valor}, status='${pagamento.status ?? ''}'
+         SET ${queryStr}
          WHERE id=${id}`
     );
 

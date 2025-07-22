@@ -27,6 +27,27 @@ routerClientes.post("/", async (req, res) => {
     }
 });
 
+routerClientes.post("/login", async (req, res) => {
+    const { email, senha } = req.body;
+
+    try {
+        const clientesList = await clientes.getAll();
+
+        const cliente = clientesList.find(
+            (c) => c.email === email && c.senha === senha
+        );
+
+        if (!cliente) {
+            return res.status(401).json({ message: "Credenciais inválidas" });
+        }
+
+        return res.status(200).json({ message: "Login bem-sucedido", cliente });
+    } catch (err) {
+        console.error("Erro ao fazer login", err.message);
+        return res.status(500).json({ message: "Erro interno no servidor" });
+    }
+});
+
 routerClientes.put("/:id", async (req, res) => {
     try {
         res.json(await clientes.update(req.params.id, req.body));
@@ -44,4 +65,3 @@ routerClientes.delete("/:id", async (req, res) => {
 });
 
 export default routerClientes;
-

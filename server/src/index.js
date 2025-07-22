@@ -1,4 +1,5 @@
 import "dotenv/config"
+import cors from "cors";
 import express from "express";
 import routerAdmin from "../src/routes/admins.js";
 import routerAgendamentos from "./routes/agendamentos.js";
@@ -12,16 +13,18 @@ const port = 3000;
 
 app.use(express.json());
 
+app.use(cors());
+
 app.get("/", (_, res) => {
     res.json({ message: "ok" });
 });
 
-app.use("/clientes", routerClientes);
-app.use("/admins", routerAdmin);
-app.use("/agendamentos", routerAgendamentos);
-app.use("/aulas", routerAulas);
-app.use("/pagamentos", routerPagamentos);
-app.use("/treinos", routerTreinos);
+app.use("/api/clientes", routerClientes);
+app.use("/api/admins", routerAdmin);
+app.use("/api/agendamentos", routerAgendamentos);
+app.use("/api/aulas", routerAulas);
+app.use("/api/pagamentos", routerPagamentos);
+app.use("/api/treinos", routerTreinos);
 
 app.use((err, _, res, next) => {
     const statusCode = err.statuScode || 500;

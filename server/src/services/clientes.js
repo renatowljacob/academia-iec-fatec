@@ -1,11 +1,13 @@
-import query from "./db.js";
+import { query, filterUndefinedAttrs, makeSetStr } from "./db.js";
 
 async function create(cliente) {
+    const { keys, values } = filterUndefinedAttrs(treino);
+
     const result = query(
         `INSERT INTO clientes
-         (nome, email, senha, telefone, data_nascimento)
+         (${keys})
          VALUES
-         ('${cliente.nome}', '${cliente.email}', '${cliente.senha}', '${cliente.telefone ?? ''}', '${cliente.data_nascimento}')`
+         (${values})`
     );
 
     return result;
@@ -13,7 +15,7 @@ async function create(cliente) {
 
 async function getAll() {
     const result = query(
-        `SELECT id, nome, email, telefone, data_nascimento
+        `SELECT id, nome, email, senha, telefone, data_nascimento
          FROM clientes`
     );
 
@@ -22,7 +24,7 @@ async function getAll() {
 
 async function getById(id) {
     const result = query(
-        `SELECT id, nome, email, telefone, data_nascimento
+        `SELECT id, nome, email, senha, telefone, data_nascimento
          FROM clientes
          WHERE id=${id}`
     );
@@ -42,7 +44,7 @@ async function remove(id) {
 async function update(id, cliente) {
     const result = query(
         `UPDATE clientes
-         SET nome='${cliente.nome}', email='${cliente.email}', senha='${cliente.senha}', telefone='${cliente.telefone ?? ''}', data_nascimento='${cliente.data_nascimento}'
+         SET ${makeSetStr(cliente)}
          WHERE id=${id}`
     );
 

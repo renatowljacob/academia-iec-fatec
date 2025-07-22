@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./login.module.css";
 import img1 from "../../assets/img1.png";
-import { login } from "../../services/auth"; // ✅ importando o serviço
+import axios from "../../services/api"; // Certifique-se que esse caminho está correto
 
 const Login = () => {
   const [tipo, setTipo] = useState("administrativo");
@@ -17,31 +17,14 @@ const Login = () => {
     e.preventDefault();
 
     try {
-<<<<<<< HEAD
-      const response = await axios.post("/clientes", {
+      const response = await axios.post(`/api/${tipo == "administrativo" ? "admins" : "clientes"}/login`, {
         email: email,
-        password: senha,
-        tipo: tipo,
+        senha: senha,
       });
 
       console.log("Login bem-sucedido:", response.data);
-||||||| 9a3db72
-      const response = await axios.post("/admins", {
-        email: email,
-        password: senha,
-        tipo: tipo,
-      });
-
-      console.log("Login bem-sucedido:", response.data);
-=======
-      const data = await login(email, senha, tipo); // ✅ usando o serviço login
-      console.log("Login bem-sucedido:", data);
->>>>>>> ce597a92c94e107a21dfac045af6cb2bec3c0f88
       setErro(null);
-
-      // redirecionamento se quiser:
-      // navigate(tipo === "cliente" ? "/cliente" : "/administrativo");
-
+      // Redirecionar ou armazenar dados no localStorage, se necessário
     } catch (error) {
       console.error("Erro no login:", error);
       setErro("Falha no login. Verifique seu email e senha.");
@@ -81,7 +64,7 @@ const Login = () => {
               <input
                 type="password"
                 id="senha"
-                placeholder="********"
+                placeholder="**"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
                 required

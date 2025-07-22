@@ -1,11 +1,12 @@
-import query from "./db.js";
+import { query, filterUndefinedAttrs, makeSetStr } from "./db.js";
 
 async function create(agendamento) {
+    const { keys, values } = filterUndefinedAttrs(agendamento);
     const result = query(
         `INSERT INTO agendamentos
-         (cliente_id, aula_id, data)
+         (${keys})
          VALUES
-         (${agendamento.cliente_id}, ${agendamento.aula_id}, '${agendamento.data}')`
+         (${values})`
     );
 
     return result;
@@ -40,9 +41,11 @@ async function remove(id) {
 }
 
 async function update(id, agendamento) {
+    const queryStr = makeSetStr(agendamento);
+
     const result = query(
         `UPDATE agendamentos
-         SET cliente_id=${agendamento.cliente_id}, aula_id=${agendamento.aula_id}, data='${agendamento.data}'
+         SET ${queryStr}
          WHERE id=${id}`
     );
 
