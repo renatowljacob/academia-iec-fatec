@@ -1,13 +1,11 @@
 import { createConnection } from "mysql2/promise";
-import { db } from "../config";
+import { module } from "../config.js";
 
 async function query(sql, params) {
-    const connection = await createConnection(db);
+    const connection = await createConnection(module.config.db);
     const [results,] = await connection.execute(sql, params);
 
     return results;
 }
 
-export default {
-    query
-};
+export default query;

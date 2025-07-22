@@ -1,5 +1,5 @@
 import { Router } from "express";
-import aulas from "../services/aulas";
+import aulas from "../services/aulas.js";
 
 const routerAulas = Router();
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import treinos from "../services/treinos";
+import treinos from "../services/treinos.js";
 
 const routerTreinos = Router();
 

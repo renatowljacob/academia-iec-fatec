@@ -1,5 +1,5 @@
 import { Router } from "express";
-import agendamentos from "../services/agendamentos";
+import agendamentos from "../services/agendamentos.js";
 
 const routerAgendamentos = Router();
 

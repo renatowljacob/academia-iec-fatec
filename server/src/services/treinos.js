@@ -1,4 +1,4 @@
-import { query } from "db";
+import { query } from "./db.js";
 
 async function create(treino) {
     const result = query(
