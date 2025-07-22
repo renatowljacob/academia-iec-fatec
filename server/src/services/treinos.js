@@ -1,61 +1,61 @@
 import { query, filterUndefinedAttrs, makeSetStr } from "./db.js";
 
+// Criar novo treino
 async function create(treino) {
-    const { keys, values } = filterUndefinedAttrs(treino);
+    const { keys, values, params } = filterUndefinedAttrs(treino);
 
-    const result = query(
-        `INSERT INTO treinos
-         (${keys})
-         VALUES
-         (${values})`
+    const result = await query(
+        `INSERT INTO treinos (${keys}) VALUES (${values})`,
+        params
     );
 
-    return result;
+    return { id: result.insertId, ...treino };
 }
 
+// Buscar todos os treinos
 async function getAll() {
-    const result = query(
-        `SELECT id, cliente_id, nome, descricao, data_inicio
-         FROM treinos`
+    const result = await query(
+        `SELECT id, cliente_id, nome, descricao, data_inicio FROM treinos`
     );
 
     return result;
 }
 
+// Buscar treino por ID
 async function getById(id) {
-    const result = query(
-        `SELECT id, cliente_id, nome, descricao, data_inicio
-         FROM treinos
-         WHERE id=${id}`
+    const result = await query(
+        `SELECT id, cliente_id, nome, descricao, data_inicio FROM treinos WHERE id = ?`,
+        [id]
     );
 
-    return result;
+    return result[0]; // retorna só um
 }
 
+// Deletar treino
 async function remove(id) {
-    const result = query(
-        `DELETE FROM treinos
-         WHERE id=${id}`
+    const result = await query(
+        `DELETE FROM treinos WHERE id = ?`,
+        [id]
     );
 
-    return result;
+    return { success: result.affectedRows > 0 };
 }
 
+// Atualizar treino
 async function update(id, treino) {
-    const queryStr = makeSetStr(treino);
-    const result = query(
-        `UPDATE treinos
-         SET ${queryStr}
-         WHERE id=${id}`
+    const { setStr, params } = makeSetStr(treino);
+    const result = await query(
+        `UPDATE treinos SET ${setStr} WHERE id = ?`,
+        [...params, id]
     );
 
-    return result;
+    return { success: result.affectedRows > 0 };
 }
 
 export default {
     create,
-    getById,
     getAll,
+    getById,
     remove,
     update
-}
+};

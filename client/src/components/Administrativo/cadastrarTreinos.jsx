@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./cadastrarTreinos.module.css";
+import api from "../../services/api";
 
 const diasSemana = [
   { label: "Segunda", value: "segunda" },
@@ -55,7 +56,7 @@ const CadastrarTreinos = () => {
     return null;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const erroValidacao = validarCampos();
@@ -64,17 +65,23 @@ const CadastrarTreinos = () => {
       return;
     }
 
-    console.log("Treino cadastrado:", treino);
-    setSucesso("Treino cadastrado com sucesso!");
-    setErro("");
-    setTreino({
-      nome: "",
-      descricao: "",
-      duracao: "",
-      intensidade: "",
-      dias: [],
-      status: "ativo",
-    });
+    try {
+      await api.post("/api/treinos", treino);
+      setSucesso("Treino cadastrado com sucesso!");
+      setErro("");
+      setTreino({
+        nome: "",
+        descricao: "",
+        duracao: "",
+        intensidade: "",
+        dias: [],
+        status: "ativo",
+      });
+    } catch (err) {
+      console.error("Erro ao cadastrar treino:", err);
+      setErro("Erro ao cadastrar treino.");
+      setSucesso("");
+    }
   };
 
   return (
@@ -145,7 +152,6 @@ const CadastrarTreinos = () => {
           </select>
         </div>
 
-        {/* Fieldset dos Dias da semana vem por último */}
         <fieldset className={styles["fieldset-dias"]}>
           <legend>Dias da semana*:</legend>
           <div className={styles["checkbox-group"]}>
