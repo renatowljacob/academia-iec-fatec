@@ -8,6 +8,7 @@ routerAulas.get("/", async (_, res) => {
         res.json(await aulas.getAll());
     } catch (err) {
         console.error("Erro ao requisitar aulas", err.message);
+        res.status(500).json({ message: "Erro ao buscar aulas" });
     }
 });
 
@@ -21,9 +22,11 @@ routerAulas.get("/:id", async (req, res) => {
 
 routerAulas.post("/", async (req, res) => {
     try {
-        res.json(await aulas.create(req.body));
+        const result = await aulas.create(req.body);
+        res.status(201).json(result);
     } catch (err) {
         console.error("Erro ao criar aula", err.message);
+        res.status(500).json({ message: "Erro ao criar aula" });
     }
 });
 

@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./gestaoPlanos.module.css";
+import { useNavigate } from "react-router-dom";
+import { isAdmin } from "../../services/authService";
 
 const GestaoPlanos = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAdmin()) {
+      navigate("/");
+    }
+  }, [])
+
   const [planos, setPlanos] = useState([
     { id: 1, nome: "Plano Básico", preco: 99.9, duracao: 1, descricao: "Acesso à academia durante 1 mês." },
     { id: 2, nome: "Plano Mensal Plus", preco: 149.9, duracao: 1, descricao: "Inclui aulas extras e piscina." },
@@ -46,12 +55,12 @@ const GestaoPlanos = () => {
         prev.map((p) =>
           p.id === form.id
             ? {
-                ...p,
-                nome: form.nome,
-                preco: Number(form.preco),
-                duracao: Number(form.duracao),
-                descricao: form.descricao,
-              }
+              ...p,
+              nome: form.nome,
+              preco: Number(form.preco),
+              duracao: Number(form.duracao),
+              descricao: form.descricao,
+            }
             : p
         )
       );

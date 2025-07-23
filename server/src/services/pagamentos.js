@@ -53,10 +53,21 @@ async function update(id, pagamento) {
     return result;
 }
 
+async function getByClienteId(clienteId) {
+    const result = query(
+        `SELECT id, cliente_id, valor, data_pagamento, status
+         FROM pagamentos
+         WHERE cliente_id=${clienteId}`
+    );
+
+    return result;
+}
+
 export default {
     create,
     getById,
     getAll,
     remove,
-    update
+    update,
+    getByClienteId
 }

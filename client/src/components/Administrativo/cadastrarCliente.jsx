@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./cadastrarCliente.module.css";
-import axios from "../../services/api"; // Certifique-se que esse caminho está correto
+import { createCliente } from "../../services/clienteService";
+import { isAdmin } from "../../services/authService";
 
 const validarCPF = (cpf) => {
   const cpfLimpo = cpf.replace(/\D/g, "");
@@ -8,6 +9,13 @@ const validarCPF = (cpf) => {
 };
 
 const CadastrarCliente = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAdmin()) {
+      navigate("/");
+    }
+  }, [])
+
   const [cliente, setCliente] = useState({
     nome: "",
     dataNascimento: "",
@@ -48,18 +56,16 @@ const CadastrarCliente = () => {
     }
 
     try {
-      console.log("Cliente cadastrado:", cliente);
-console.log(cliente.dataNascimento);
-
-      const response = await axios.post(`/api/clientes`, {
+      const clienteData = {
         nome: cliente.nome,
         email: cliente.email,
-        senha: cliente.senha,
         telefone: cliente.telefone,
         data_nascimento: cliente.dataNascimento
-      });
+      };
 
-      if (response.data) {
+      const response = await createCliente(clienteData);
+
+      if (response) {
         setErro("");
         setCliente({
           nome: "",
@@ -74,15 +80,12 @@ console.log(cliente.dataNascimento);
           status: "ativo",
         });
         setSucesso("Cliente cadastrado com sucesso!");
-        //navigate(`/${tipo == "administrativo" ? "administrativo" : "cliente"}`);
       }
 
-      console.log("Login bem-sucedido:", response.data);
-      setErro(null);
-      // Redirecionar ou armazenar dados no localStorage, se necessário
+      console.log("Cliente cadastrado:", response);
     } catch (error) {
-      console.error("Erro no login:", error);
-      setErro("Falha no login. Verifique seu email e senha.");
+      console.error("Erro ao cadastrar cliente:", error);
+      setErro("Falha ao cadastrar cliente. Tente novamente.");
     }
   };
 

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./cadastrarTreinos.module.css";
-import api from "../../services/api";
+import { createTreino } from "../../services/treinoService";
+import { getAllClientes } from "../../services/clienteService";
+import { useNavigate } from "react-router-dom";
+import { isAdmin } from "../../services/authService";
 
 const diasSemana = [
   { label: "Segunda", value: "segunda" },
@@ -13,46 +16,49 @@ const diasSemana = [
 ];
 
 const CadastrarTreinos = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAdmin()) {
+      navigate("/");
+    }
+  }, [])
+
   const [treino, setTreino] = useState({
+    cliente_id: "",
     nome: "",
     descricao: "",
-    duracao: "",
-    intensidade: "",
-    dias: [],
-    status: "ativo",
+    dia_semana: "",
   });
 
+  const [clientes, setClientes] = useState([]);
   const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (name === "dias") {
-      let novosDias = [...treino.dias];
-      if (checked) {
-        novosDias.push(value);
-      } else {
-        novosDias = novosDias.filter((dia) => dia !== value);
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        const clientesData = await getAllClientes();
+        setClientes(clientesData);
+      } catch (err) {
+        console.error("Erro ao buscar clientes:", err);
+        setErro("Erro ao carregar lista de clientes");
       }
-      setTreino({ ...treino, dias: novosDias });
-      setErro("");
-      setSucesso("");
-      return;
-    }
+    };
 
+    fetchClientes();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setTreino({ ...treino, [name]: value });
     setErro("");
     setSucesso("");
   };
 
   const validarCampos = () => {
+    if (!treino.cliente_id) return "Selecione um cliente";
     if (!treino.nome.trim()) return "Nome do treino é obrigatório";
-    if (!treino.duracao.trim()) return "Duração é obrigatória";
-    if (isNaN(treino.duracao) || Number(treino.duracao) <= 0)
-      return "Duração deve ser um número positivo";
-    if (!treino.intensidade) return "Intensidade é obrigatória";
-    if (treino.dias.length === 0) return "Escolha pelo menos um dia da semana";
+    if (!treino.dia_semana) return "Escolha um dia da semana";
     return null;
   };
 
@@ -66,16 +72,14 @@ const CadastrarTreinos = () => {
     }
 
     try {
-      await api.post("/api/treinos", treino);
+      await createTreino(treino);
       setSucesso("Treino cadastrado com sucesso!");
       setErro("");
       setTreino({
+        cliente_id: "",
         nome: "",
         descricao: "",
-        duracao: "",
-        intensidade: "",
-        dias: [],
-        status: "ativo",
+        dia_semana: "",
       });
     } catch (err) {
       console.error("Erro ao cadastrar treino:", err);
@@ -88,6 +92,23 @@ const CadastrarTreinos = () => {
     <div className={styles["container-treino"]}>
       <h2>Cadastrar Treino</h2>
       <form onSubmit={handleSubmit} className={styles["form-treino"]}>
+        <div>
+          <label htmlFor="cliente_id">Cliente*:</label>
+          <select
+            id="cliente_id"
+            name="cliente_id"
+            value={treino.cliente_id}
+            onChange={handleChange}
+          >
+            <option value="">Selecione um cliente</option>
+            {clientes.map((cliente) => (
+              <option key={cliente.id} value={cliente.id}>
+                {cliente.nome} - {cliente.email}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div>
           <label htmlFor="nome">Nome do treino*:</label>
           <input
@@ -112,63 +133,21 @@ const CadastrarTreinos = () => {
         </div>
 
         <div>
-          <label htmlFor="duracao">Duração (minutos)*:</label>
-          <input
-            id="duracao"
-            type="number"
-            name="duracao"
-            value={treino.duracao}
-            onChange={handleChange}
-            placeholder="Ex: 60"
-            min="1"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="intensidade">Intensidade*:</label>
+          <label htmlFor="dia_semana">Dia da semana*:</label>
           <select
-            id="intensidade"
-            name="intensidade"
-            value={treino.intensidade}
+            id="dia_semana"
+            name="dia_semana"
+            value={treino.dia_semana}
             onChange={handleChange}
           >
-            <option value="">Selecione</option>
-            <option value="leve">Leve</option>
-            <option value="moderada">Moderada</option>
-            <option value="intensa">Intensa</option>
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="status">Status:</label>
-          <select
-            id="status"
-            name="status"
-            value={treino.status}
-            onChange={handleChange}
-          >
-            <option value="ativo">Ativo</option>
-            <option value="inativo">Inativo</option>
-          </select>
-        </div>
-
-        <fieldset className={styles["fieldset-dias"]}>
-          <legend>Dias da semana*:</legend>
-          <div className={styles["checkbox-group"]}>
+            <option value="">Selecione um dia</option>
             {diasSemana.map(({ label, value }) => (
-              <label key={value} className={styles["checkbox-label"]}>
-                <input
-                  type="checkbox"
-                  name="dias"
-                  value={value}
-                  checked={treino.dias.includes(value)}
-                  onChange={handleChange}
-                />
+              <option key={value} value={value}>
                 {label}
-              </label>
+              </option>
             ))}
-          </div>
-        </fieldset>
+          </select>
+        </div>
 
         {erro && <p className={styles.erro}>{erro}</p>}
         {sucesso && <p className={styles.sucesso}>{sucesso}</p>}

@@ -15,7 +15,7 @@ async function create(treino) {
 // Buscar todos os treinos
 async function getAll() {
     const result = await query(
-        `SELECT id, cliente_id, nome, descricao, data_inicio FROM treinos`
+        `SELECT id, cliente_id, nome, descricao, dia_semana FROM treinos`
     );
 
     return result;
@@ -24,7 +24,7 @@ async function getAll() {
 // Buscar treino por ID
 async function getById(id) {
     const result = await query(
-        `SELECT id, cliente_id, nome, descricao, data_inicio FROM treinos WHERE id = ?`,
+        `SELECT id, cliente_id, nome, descricao, dia_semana FROM treinos WHERE id = ?`,
         [id]
     );
 
@@ -52,10 +52,22 @@ async function update(id, treino) {
     return { success: result.affectedRows > 0 };
 }
 
+// Buscar treinos por ID do cliente
+async function getByClienteId(clienteId) {
+    const result = query(
+        `SELECT id, cliente_id, nome, descricao, dia_semana
+         FROM treinos
+         WHERE cliente_id=${clienteId}`
+    );
+
+    return result;
+}
+
 export default {
     create,
     getAll,
     getById,
     remove,
-    update
+    update,
+    getByClienteId
 };

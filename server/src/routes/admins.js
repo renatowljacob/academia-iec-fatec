@@ -35,6 +35,7 @@ routerAdmin.put("/:id", async (req, res) => {
         res.json(await admins.update(req.params.id, req.body));
     } catch (err) {
         console.error("Erro ao atualizar admin", err.message);
+        res.status(500).json({ message: "Erro ao atualizar admin" });
     }
 });
 
@@ -43,21 +44,22 @@ routerAdmin.delete("/:id", async (req, res) => {
         res.json(await admins.remove(req.params.id));
     } catch (err) {
         console.error("Erro ao deletar admin", err.message);
+        res.status(500).json({ message: "Erro ao deletar admin" });
     }
 });
 
 routerAdmin.post("/login", async (req, res) => {
-    const { email, senha } = req.body;
+    const { email } = req.body;
 
     try {
         const adminsList = await admins.getAll();
 
         const admin = adminsList.find(
-            (a) => a.email === email && a.senha === senha
+            (a) => a.email === email
         );
 
         if (!admin) {
-            return res.status(401).json({ message: "Credenciais inválidas" });
+            return res.status(401).json({ message: "Email não encontrado" });
         }
 
         return res.status(200).json({ message: "Login bem-sucedido", admin });

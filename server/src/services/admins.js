@@ -15,7 +15,7 @@ async function create(admin) {
 
 async function getAll() {
     const result = query(
-        `SELECT id, nome, email, senha
+        `SELECT id, nome, email
          FROM admins`
     );
 
@@ -24,7 +24,7 @@ async function getAll() {
 
 async function getById(id) {
     const result = query(
-        `SELECT id, nome, email, senha
+        `SELECT id, nome, email
          FROM admins
          WHERE id=${id}`
     );

@@ -13,7 +13,6 @@ CREATE TABLE admins(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(128) NOT NULL,
     email VARCHAR(128) NOT NULL,
-    senha VARCHAR(256) NOT NULL
 );
 
 CREATE TABLE treinos(
@@ -21,7 +20,7 @@ CREATE TABLE treinos(
     cliente_id INT UNSIGNED NOT NULL,
     nome VARCHAR(128) NOT NULL,
     descricao TEXT,
-    data_inicio DATE,
+    dia_semana VARCHAR(32),
     CONSTRAINT `fk_cliente_treino_id`
         FOREIGN KEY (cliente_id) REFERENCES clientes (id)
         ON UPDATE CASCADE
@@ -39,6 +38,7 @@ CREATE TABLE agendamentos(
     cliente_id INT UNSIGNED NOT NULL,
     aula_id INT UNSIGNED NOT NULL,
     data DATE NOT NULL,
+    presente BOOLEAN DEFAULT FALSE,
     CONSTRAINT `fk_cliente_agendamento_id`
         FOREIGN KEY (cliente_id) REFERENCES clientes (id)
         ON UPDATE CASCADE,
@@ -58,3 +58,4 @@ CREATE TABLE pagamentos(
         ON UPDATE CASCADE
 );
 
+INSERT INTO admins (nome, email) VALUES ("admin", "admin@gmail.com");

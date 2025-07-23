@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./login.module.css";
 import img1 from "../../assets/img1.png";
-import axios from "../../services/api"; // Certifique-se que esse caminho está correto
-import { Route, useNavigate } from "react-router-dom";
+import { isAdmin, isAuthenticated, login, saveUserData } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    if (isAuthenticated()) {
+      if (isAdmin()) {
+        navigate("/administrativo")
+      } else {
+        navigate("/cliente")
+      }
+    }
+  }, []);
+
   const [tipo, setTipo] = useState("administrativo");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -19,21 +29,27 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`/api/${tipo == "administrativo" ? "admins" : "clientes"}/login`, {
-        email: email,
-        senha: senha,
-      });
+      const response = await login(email, tipo);
 
-      if (response.data) {
-        navigate(`/${tipo == "administrativo" ? "administrativo" : "cliente"}`);
+      if (response && (response.admin || response.cliente)) {
+        // Salvar dados do usuário no localStorage
+        const userData = response.admin || response.cliente;
+        saveUserData(userData, tipo);
+
+        // Navegar para a página apropriada
+        navigate(`/${tipo === "administrativo" ? "administrativo" : "cliente"}`);
+
+        console.log("Login bem-sucedido:", response);
+        setErro(null);
       }
-
-      console.log("Login bem-sucedido:", response.data);
-      setErro(null);
-      // Redirecionar ou armazenar dados no localStorage, se necessário
     } catch (error) {
       console.error("Erro no login:", error);
-      setErro("Falha no login. Verifique seu email e senha.");
+
+      if (error.response && error.response.status === 401) {
+        setErro("Email não encontrado. Verifique se o email está correto.");
+      } else {
+        setErro("Erro no servidor. Tente novamente.");
+      }
     }
   };
 
@@ -73,7 +89,6 @@ const Login = () => {
                 placeholder="**"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                required
               />
             </div>
 

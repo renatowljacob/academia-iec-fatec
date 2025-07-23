@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./pagamento.module.css";
+import { getPagamentosByCliente, createPagamento } from "../../services/pagamentoService";
+import { getUserData, isCliente } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const planos = [
     {
@@ -34,6 +37,13 @@ const formasPagamentoIniciais = [
 ];
 
 const Pagamento = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!isCliente()) {
+            navigate("/");
+        }
+    }, []);
+
     const [formasPagamento, setFormasPagamento] = useState(formasPagamentoIniciais);
     const [modalAberto, setModalAberto] = useState(false);
     const [novoCartao, setNovoCartao] = useState({
@@ -43,6 +53,27 @@ const Pagamento = () => {
     });
     const [assinaturaAtiva, setAssinaturaAtiva] = useState(2);
     const [diasRestantes, setDiasRestantes] = useState(15);
+    const [pagamentos, setPagamentos] = useState([]);
+    const [error, setError] = useState("");
+
+    const userData = getUserData();
+    const clienteId = userData?.user?.id;
+
+    useEffect(() => {
+        loadPagamentos();
+    }, []);
+
+    const loadPagamentos = async () => {
+        if (!clienteId) return;
+
+        try {
+            const data = await getPagamentosByCliente(clienteId);
+            setPagamentos(data);
+        } catch (err) {
+            console.error("Erro ao carregar pagamentos:", err);
+            setError("Erro ao carregar histórico de pagamentos");
+        }
+    };
 
     const abrirModal = () => setModalAberto(true);
     const fecharModal = () => setModalAberto(false);

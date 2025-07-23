@@ -14,6 +14,17 @@ routerTreinos.get("/", async (_, res) => {
     }
 });
 
+// Buscar treinos por ID do cliente (deve vir antes da rota /:id)
+routerTreinos.get("/cliente/:clienteId", async (req, res) => {
+    try {
+        const result = await treinos.getByClienteId(req.params.clienteId);
+        res.json(result);
+    } catch (err) {
+        console.error("Erro ao buscar treinos do cliente", err.message);
+        res.status(500).json({ erro: "Erro ao buscar treinos do cliente." });
+    }
+});
+
 // Buscar um treino por ID
 routerTreinos.get("/:id", async (req, res) => {
     try {
