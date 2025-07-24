@@ -4,15 +4,19 @@ USE academia;
 CREATE TABLE clientes(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(128) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
     email VARCHAR(128) NOT NULL,
+    endereco VARCHAR(128) NOT NULL,
     telefone VARCHAR(16),
-    data_nascimento DATE NOT NULL
+    status VARCHAR(16),
+    plano VARCHAR(32)
 );
 
 CREATE TABLE admins(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(128) NOT NULL,
-    email VARCHAR(128) NOT NULL,
+    email VARCHAR(128) NOT NULL
 );
 
 CREATE TABLE treinos(
@@ -52,7 +56,7 @@ CREATE TABLE pagamentos(
     cliente_id INT UNSIGNED NOT NULL,
     data_pagamento DATE NOT NULL,
     valor DECIMAL(8,2) UNSIGNED NOT NULL,
-    status VARCHAR(64),
+    status BOOLEAN DEFAULT FALSE,
     CONSTRAINT `fk_cliente_pagamento_id`
         FOREIGN KEY (cliente_id) REFERENCES clientes (id)
         ON UPDATE CASCADE

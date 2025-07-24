@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./cadastrarCliente.module.css";
 import { createCliente } from "../../services/clienteService";
 import { isAdmin } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
+
+const validarEmail = (email) => {
+  return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/.test(email.trim());
+};
 
 const validarCPF = (cpf) => {
   const cpfLimpo = cpf.replace(/\D/g, "");
@@ -20,13 +25,11 @@ const CadastrarCliente = () => {
     nome: "",
     dataNascimento: "",
     cpf: "",
-    telefone: "",
     email: "",
     endereco: "",
-    plano: "",
-    dataInicioPlano: "",
-    observacoes: "",
+    telefone: "",
     status: "ativo",
+    plano: "basico",
   });
 
   const [erro, setErro] = useState("");
@@ -41,8 +44,9 @@ const CadastrarCliente = () => {
   const validarCampos = () => {
     if (!cliente.nome.trim()) return "Nome é obrigatório";
     if (!cliente.cpf.trim()) return "CPF é obrigatório";
+    if (!validarEmail(cliente.email)) return "Email é obrigatório";
+    if (!cliente.endereco.trim()) return "Endereco é obrigatório";
     if (!validarCPF(cliente.cpf)) return "CPF inválido (deve ter 11 números)";
-    if (!cliente.plano.trim()) return "Plano é obrigatório";
     return null;
   };
 
@@ -58,9 +62,13 @@ const CadastrarCliente = () => {
     try {
       const clienteData = {
         nome: cliente.nome,
+        data_nascimento: cliente.dataNascimento,
+        cpf: cliente.cpf,
         email: cliente.email,
+        endereco: cliente.endereco,
         telefone: cliente.telefone,
-        data_nascimento: cliente.dataNascimento
+        status: cliente.status,
+        plano: cliente.plano,
       };
 
       const response = await createCliente(clienteData);
@@ -71,13 +79,11 @@ const CadastrarCliente = () => {
           nome: "",
           dataNascimento: "",
           cpf: "",
-          telefone: "",
           email: "",
           endereco: "",
-          plano: "",
-          dataInicioPlano: "",
-          observacoes: "",
+          telefone: "",
           status: "ativo",
+          plano: "basico",
         });
         setSucesso("Cliente cadastrado com sucesso!");
       }
@@ -113,6 +119,7 @@ const CadastrarCliente = () => {
             name="dataNascimento"
             value={cliente.dataNascimento}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -130,17 +137,6 @@ const CadastrarCliente = () => {
         </div>
 
         <div>
-          <label htmlFor="telefone">Telefone/WhatsApp:</label>
-          <input
-            id="telefone"
-            type="tel"
-            name="telefone"
-            value={cliente.telefone}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
           <label htmlFor="email">E-mail:</label>
           <input
             id="email"
@@ -148,6 +144,7 @@ const CadastrarCliente = () => {
             name="email"
             value={cliente.email}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -159,38 +156,17 @@ const CadastrarCliente = () => {
             name="endereco"
             value={cliente.endereco}
             onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="plano">Plano escolhido*:</label>
-          <input
-            id="plano"
-            type="text"
-            name="plano"
-            value={cliente.plano}
-            onChange={handleChange}
             required
           />
         </div>
 
         <div>
-          <label htmlFor="dataInicioPlano">Data de início do plano:</label>
+          <label htmlFor="telefone">Telefone/WhatsApp:</label>
           <input
-            id="dataInicioPlano"
-            type="date"
-            name="dataInicioPlano"
-            value={cliente.dataInicioPlano}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="observacoes">Observações / restrições:</label>
-          <textarea
-            id="observacoes"
-            name="observacoes"
-            value={cliente.observacoes}
+            id="telefone"
+            type="tel"
+            name="telefone"
+            value={cliente.telefone}
             onChange={handleChange}
           />
         </div>
@@ -205,6 +181,19 @@ const CadastrarCliente = () => {
           >
             <option value="ativo">Ativo</option>
             <option value="inativo">Inativo</option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="plano">Plano escolhido:</label>
+          <select
+            id="plano"
+            name="plano"
+            value={cliente.plano}
+            onChange={handleChange}
+          >
+            <option value="basico">Plano Básico</option>
+            <option value="plus">Plano Mensal Plus</option>
           </select>
         </div>
 

@@ -14,7 +14,7 @@ const Cliente = () => {
         }
     }, []);
 
-    const userData = getUserData().user
+    const userData = getUserData()?.user
     const username = userData ? `${userData.nome.substring(0, 1).toUpperCase()}${userData.nome.substring(1)}` : "Sua Conta";
 
     return (
