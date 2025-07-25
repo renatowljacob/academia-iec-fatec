@@ -1,10 +1,11 @@
 # Projeto Academia de artes Marciais
+
 ## Sobre o projeto:
 O projeto consiste no desenvolvimento de um sistema web completo para gerenciar e facilitar a rotina de uma academia de artes marciais, atendendo tanto os clientes (alunos) quanto os administradores da instituição. A plataforma oferece funcionalidades voltadas à organização, acompanhamento de treinos, controle de presença e gestão financeira.
 
 ## Tecnologias usadas:
-- Front-end: React.js
-- Back-end: Express
+- Front-end: React, CSS Modules
+- Back-end: Node.js, Express.js
 - Banco de dados: MySQL
 
 ## Integrantes:
